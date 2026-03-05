@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水果连连看 - 休闲益智</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <h1>水果连连看</h1>
+      <p class="subtitle">点击两个相同水果，用不超过两折的线连起来即可消除</p>
+      <div class="level-info">
+        <span id="levelDisplay" class="level-text">第 1 关 / 共 10 关</span>
+      </div>
+    </header>
+
+    <div class="main-row">
+      <aside class="toolbar-left" aria-label="操作按钮">
+        <button type="button" class="btn btn-hint" id="btnHint">💡 提示</button>
+        <button type="button" class="btn btn-shuffle" id="btnShuffle">🔀 洗牌</button>
+        <button type="button" class="btn btn-restart" id="btnRestart">🔄 重新开始</button>
+        <button type="button" class="btn btn-pause" id="btnPause">⏸ 暂停</button>
+        <button type="button" class="btn btn-bgm" id="btnBGM">🔊 音乐开</button>
+        <div class="zoom-group">
+          <button type="button" class="btn btn-zoom" id="btnZoomIn" title="放大">➕</button>
+          <button type="button" class="btn btn-zoom" id="btnZoomOut" title="缩小">➖</button>
+          <span class="zoom-percent" id="zoomPercent" aria-live="polite">100%</span>
+        </div>
+      </aside>
+
+      <main class="board-area">
+        <div class="board-zoom-wrapper" id="boardZoomWrapper">
+          <div class="board-wrap" id="boardWrap">
+            <div class="board-scalable" id="boardScalable">
+              <div class="board-inner">
+                <div class="line-overlay" id="lineOverlay" aria-hidden="true"></div>
+                <div class="grid-wrapper">
+                  <div class="board" id="board" role="grid" aria-label="水果棋盘"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <aside class="time-bar-wrap" aria-label="剩余时间">
+        <div class="time-bar-label">剩余 <span id="timeNum">120</span> 秒</div>
+        <div class="time-bar-track">
+          <div class="time-bar-fill" id="timeBarFill"></div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="result-overlay" id="resultOverlay" hidden>
+      <div class="result-box">
+        <h2 id="resultTitle">🎉 恭喜过关！</h2>
+        <p id="resultStats">本关用时 0 秒 | 消除 0 对</p>
+        <button type="button" class="btn btn-primary" id="resultBtn">进入下一关</button>
+      </div>
+    </div>
+
+    <div class="pause-overlay-fullscreen" id="pauseOverlayFullscreen" hidden aria-hidden="true">
+      <p class="pause-fullscreen-text">已暂停，按继续或 ESC 恢复</p>
+    </div>
+
+    <div class="debug-panel" id="debugPanel" hidden aria-label="调试面板">
+      <div class="debug-panel-title">调试面板 (Ctrl+D 关闭)</div>
+      <pre class="debug-panel-content" id="debugPanelContent"></pre>
+      <div class="debug-panel-buttons">
+        <button type="button" class="btn btn-debug" id="debugCopy">复制诊断信息</button>
+        <button type="button" class="btn btn-debug" id="debugResetZoom">重置缩放</button>
+        <button type="button" class="btn btn-debug" id="debugRedrawLines">强制重绘连线层</button>
+      </div>
+    </div>
+
+    <div class="win-overlay" id="winOverlay" hidden aria-label="通关页">
+      <canvas class="win-confetti" id="winConfetti" aria-hidden="true"></canvas>
+      <div class="win-content">
+        <h2 class="win-title">🎉 恭喜通关！</h2>
+        <p class="win-zh">恭喜爷爷奶奶成功通关<br>CPT, FLY, 100！</p>
+        <p class="win-zh-sub">这个小游戏<br>是孙子为你们做的 ❤️</p>
+        <p class="win-en">🎉 Congratulations!</p>
+        <p class="win-en-sub">You completed the game!</p>
+        <p class="win-en-made">Made with love by<br>ZhiYu Chao</p>
+        <p class="win-en-uni">University of Szeged<br>Hungary</p>
+        <p class="win-credit">游戏制作者<br>中欧 · 匈牙利 · 塞格德大学<br>晁志宇</p>
+        <button type="button" class="btn btn-win-play" id="winPlayAgain">再玩一遍</button>
+      </div>
+      <p class="win-sound-hint" id="winSoundHint" hidden>点击任意处播放声音</p>
+      <div class="win-photo-wrap">
+        <img class="win-photo win-photo-a" id="winPhotoA" src="me1.jpg" alt="" />
+        <img class="win-photo win-photo-b" id="winPhotoB" src="me2.jpg" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <script src="levels.js"></script>
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+  <script src="js/win.js"></script>
+</body>
+</html>
